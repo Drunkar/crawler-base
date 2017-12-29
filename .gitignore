@@ -1,0 +1,12 @@
+# Default data directory
+data/*
+
+auth.json
+
+# driver logs
+geckodriver.log
+ghostdriver.log
+
+*.pyc
+
+!.gitkeep
