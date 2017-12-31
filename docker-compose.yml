@@ -9,6 +9,7 @@ services:
       - ./:/usr/src/app
     ports:
       - "4444:4444"
+      - "5900:5900"
     logging:
       driver: "json-file"
       options:

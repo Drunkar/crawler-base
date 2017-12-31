@@ -1,4 +1,4 @@
-FROM selenium/standalone-chrome
+FROM selenium/standalone-chrome-debug
 MAINTAINER drunkar <drunkars.p@gmail.com>
 
 USER root
@@ -28,3 +28,5 @@ RUN pip install -r /requirements.txt
 
 WORKDIR /usr/src/app
 VOLUME ["/usr/src/app"]
+
+USER seluser
