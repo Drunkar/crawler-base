@@ -13,4 +13,5 @@ class BaseCrawler(object):
         self.data = defaultdict(list)
 
     def quit(self):
+        self._driver.close()
         self._driver.quit()

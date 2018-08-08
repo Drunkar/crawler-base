@@ -20,6 +20,8 @@ def main():
         logger.warn(e)
         trc = traceback.format_exc()
         logger.warn(trc)
+    finally:
+        crawler.quit()
 
 
 if __name__ == '__main__':

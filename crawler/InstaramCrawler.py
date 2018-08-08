@@ -87,16 +87,11 @@ class InstagramCrawler(object):
                 return
         else:
             logger.warn("Unknown crawl type: {}".format(crawl_type))
-            self.quit()
             return
 
         # Save to directory
         logger.info("Saving...")
         self.download_and_save(dir_prefix, query, crawl_type, caption)
-
-        # Quit driver
-        logger.info("Quitting driver...")
-        self.quit()
 
     def browse_target_page(self, query):
         relative_url = query

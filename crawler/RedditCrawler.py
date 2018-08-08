@@ -47,9 +47,6 @@ class RedditCrawler(BaseCrawler):
         logger.info("Saving...")
         self.download_and_save(dir_prefix, query, crawl_type, caption)
 
-        # Quit driver
-        logger.info("Quitting driver...")
-        self.quit()
 
     def login(self, query, authentication=None):
         """
