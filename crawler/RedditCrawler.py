@@ -61,7 +61,7 @@ class RedditCrawler(BaseCrawler):
             with open(authentication, "r") as fin:
                 auth_dict = json.loads(fin.read())
             # Input username
-            username_input = WebDriverWait(self._driver, 5).until(
+            username_input = WebDriverWait(self._driver, 15).until(
                 EC.presence_of_element_located((By.NAME, "user"))
             )
             for c in auth_dict["username"]:
