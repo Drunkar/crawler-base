@@ -20,8 +20,8 @@ logger = logging.getLogger(__name__)
 
 
 class RedditCrawler(BaseCrawler):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, executor_address):
+        super().__init__(executor_address, "https://www.reddit.com/", "//*[@id='header-search-bar']")
         self.host = "https://www.reddit.com/"
 
     def crawl(self, dir_prefix, query, crawl_type, number, caption, authentication):
@@ -53,7 +53,7 @@ class RedditCrawler(BaseCrawler):
         authentication: path to authentication json file
         """
         logger.debug("get: {}".format(urljoin(self.host, query)))
-        self._driver.get(urljoin(self.host, query))
+        self.get(urljoin(self.host, query))
 
         if authentication:
             logger.info(

@@ -2,14 +2,15 @@ import argparse
 from datetime import datetime, timedelta
 import logging
 import traceback
+import util
 import sys
 from crawler.RedditCrawler import RedditCrawler
 
 logger = logging.getLogger()
 
-def main():
+def main(executor_address):
     try:
-        crawler = RedditCrawler()
+        crawler = RedditCrawler(executor_address)
         crawler.crawl(dir_prefix="./data/",
                       query="/",
                       crawl_type="feed",
@@ -49,7 +50,9 @@ if __name__ == '__main__':
     start = datetime.now()
     logger.info("Start crawling: " + start.strftime("%Y-%m-%d %H:%M:%S"))
 
-    main()
+    env_file = "local.env"
+    executor_address = util.get_executor_address(env_file)
+    main(executor_address)
 
     end = datetime.now()
     logger.info("End crawling: " + end.strftime("%Y-%m-%d %H:%M:%S"))

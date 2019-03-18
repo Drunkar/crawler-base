@@ -1,2 +1,5 @@
-requests
-selenium==3.8
+psycopg2-binary>=2.7.5
+selenium==3.14
+bs4>=0.0.1
+lxml>=4.2.5
+fake-useragent

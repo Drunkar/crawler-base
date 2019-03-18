@@ -3,13 +3,16 @@ version: "3"
 services:
   crawler:
     build:
-      context: ./
+      context: ./docker/
       dockerfile: Dockerfile
     volumes:
       - ./:/usr/src/app
+      - /dev/shm:/dev/shm
     ports:
       - "4444:4444"
       - "5900:5900"
+    environment:
+      - JAVA_OPTS=-Xmx512m
     logging:
       driver: "json-file"
       options:

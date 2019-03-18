@@ -51,8 +51,8 @@ class InstagramCrawler(object):
     Crawler class
     """
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, executor_address):
+        super().__init__(executor_address)
         self.host = "http://www.instagram.com"
 
     def crawl(self, dir_prefix, query, crawl_type, number, caption, authentication):

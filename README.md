@@ -17,6 +17,11 @@ $ pip install -r requirements.txt
 
 ```
 $ docker-compose up -d
+```
+
+For reddit login feed crawl.
+
+```
 $ echo '{"username": "YOUR_USERNAME", "password": "YOUR_PASSWORD"}' > auth.json
 $ python crawl.py -d
 ```
