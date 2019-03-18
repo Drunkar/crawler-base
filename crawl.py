@@ -8,9 +8,9 @@ from crawler.RedditCrawler import RedditCrawler
 
 logger = logging.getLogger()
 
-def main(executor_address):
+def main(args, executor_address):
     try:
-        crawler = RedditCrawler(executor_address)
+        crawler = RedditCrawler(executor_address, args.with_proxy)
         crawler.crawl(dir_prefix="./data/",
                       query="/",
                       crawl_type="feed",
@@ -29,6 +29,8 @@ if __name__ == '__main__':
     # args
     parser = argparse.ArgumentParser(
         description="Crowl examlple.")
+    parser.add_argument(
+        "--with-proxy", action="store_true", help="Debug mode.")
     parser.add_argument(
         "-d", "--debug", action="store_true", help="Debug mode.")
     args = parser.parse_args()
@@ -52,7 +54,7 @@ if __name__ == '__main__':
 
     env_file = "local.env"
     executor_address = util.get_executor_address(env_file)
-    main(executor_address)
+    main(args, executor_address)
 
     end = datetime.now()
     logger.info("End crawling: " + end.strftime("%Y-%m-%d %H:%M:%S"))

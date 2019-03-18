@@ -20,8 +20,8 @@ logger = logging.getLogger(__name__)
 
 
 class RedditCrawler(BaseCrawler):
-    def __init__(self, executor_address):
-        super().__init__(executor_address, "https://www.reddit.com/", "//*[@id='header-search-bar']")
+    def __init__(self, executor_address, with_proxy):
+        super().__init__(executor_address, with_proxy, "https://www.reddit.com/", "//*[@id='header-search-bar']")
         self.host = "https://www.reddit.com/"
 
     def crawl(self, dir_prefix, query, crawl_type, number, caption, authentication):

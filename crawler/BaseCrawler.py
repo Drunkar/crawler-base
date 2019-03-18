@@ -17,17 +17,21 @@ logger = logging.getLogger(__name__)
 ua = UserAgent()
 
 class BaseCrawler(object):
-    def __init__(self, executor_address, conn_check_url, conn_check_xpath):
+    def __init__(self, executor_address, with_proxy, conn_check_url, conn_check_xpath):
         self.retries = 3
         self.timeout = 10
         self.executor_address = executor_address
         self.conn_check_url = conn_check_url
         self.conn_check_xpath = conn_check_xpath
         self.flags = ["start-maximized", "--no-sandbox", "--disable-infobars", "--disable-dev-shm-usage", "--disable-browser-side-navigation", "--disable-gpu"]
-        # get free proxy list
-        proxies = self.get_proxies()
-        logger.info("{} proxies loaded.".format(len(proxies)))
-        self.launch_proxy_webdriver(proxies)
+        if with_proxy:
+            # get free proxy list
+            proxies = self.get_proxies()
+            logger.info("{} proxies loaded.".format(len(proxies)))
+            self.launch_proxy_webdriver(proxies)
+        else:
+            self.launch_webdriver()
+
         self.data = defaultdict(list)
 
     def get_proxies(self):
@@ -90,6 +94,17 @@ class BaseCrawler(object):
                 self.quit()
                 time.sleep(4)
         raise Exception("Error: No valid ip found.")
+
+    def launch_webdriver(self):
+        self.capabilities = webdriver.DesiredCapabilities.CHROME
+        # set useragent
+        u = ua.random
+        self.capabilities["chrome_options"] = {"args": ["--user-agent=" + u] + self.flags}
+        logger.info("ua: {}".format(u))
+        self._driver = webdriver.Remote(
+            command_executor=self.executor_address,
+            desired_capabilities=self.capabilities)
+        self._driver.set_page_load_timeout(self.timeout)
 
     def change_ua(self):
         self.quit()
